@@ -1,0 +1,9 @@
+﻿@model HomeAppliancesStore.ViewModels.AvailableViewModel
+
+<h3>Доступные устройства</h3>
+<div class="row mt-5 mb-2">
+    @foreach (Product item in Model.availableProduct)
+    {
+        @await Html.PartialAsync("Products", item)
+    }
+</div>

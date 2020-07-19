@@ -1,0 +1,66 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - HomeAppliancesStore</title>
+
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="~/css/header.css" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="navbar navbar-expand-md navbar-light bg-light sticky-top">
+                <div class="container-fluid">
+                    <a asp-action="Index" class="navbar-brad"><img src="/img/5element.png"></a>
+                    <div class="collapse navbar-collapse" id="navbarResponsive">
+                        <ul class="navbar-nav ml-auto">
+                            <li class="nav-item active">
+                                <a href="/Home/Index/" class="nav-link">Главная</a>
+                            </li>
+                            <li class="nav-item active">
+                                <a href="/Home/Contacts/" class="nav-link">Контакты</a>
+                            </li>
+                            <li class="nav-item active">
+                                <a href="/Home/List/" class="nav-link">Все товары</a>
+                            </li>
+                            <li class="nav-item active">
+                                <a href="/Home/Available/" class="nav-link">Доступные</a>
+                            </li>
+                            <li class="nav-item active">
+                                <a href="/Home/List/laptop" class="nav-link">Ноутбуки</a>
+                            </li>
+                            <li class="nav-item active">
+                                <a href="/Home/List/phones" class="nav-link">Телефоны</a>
+                            </li>
+                            <li class="nav-item active">
+                                <a asp-controller="Basket" asp-action="Index">
+                                    <img src="https://img.icons8.com/metro/26/000000/shopping-cart.png" />
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container mb-5">
+        <partial name="_CookieConsentPartial" />
+        <main role="main" class="pb-3 mt-5">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="page-footer font-small cyan darken-3">
+        <div class="footer-copyright text-center py-3">
+            © 2020 Copyright:
+            <a asp-action="Index"> 5Element.com</a>
+        </div>
+
+    </footer>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

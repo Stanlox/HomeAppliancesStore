@@ -1,0 +1,21 @@
+﻿@using HomeAppliancesStore.ViewModels
+@model ProductViewModel
+@{
+    ViewData["Title"] = "List";
+}
+
+<h3 align="center">@Model.Category</h3>
+<div class="row mt-5 mb-2">
+    @foreach (Product item in Model.products)
+    {
+        if (item.isAvailable == false)
+        {
+            @await Html.PartialAsync("NotAvailable", item)
+        }
+        else
+        {
+            @await Html.PartialAsync("Products", item)
+        }
+    }
+</div>
+

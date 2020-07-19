@@ -1,0 +1,13 @@
+﻿@model HomeAppliancesStore.ViewModels.BasketViewModel
+<div class="container">
+    @foreach (var item in Model.basket.listProducts)
+    {
+        <div class="alert alert-warning mt-3">
+            <b>Гаджет:</b>@item.product.Name<br />
+            <b>Цена:</b>@item.product.Price.ToString("# руб")
+        </div>
+    }
+    <hr />
+    <a class="btn btn-danger" asp-controller="Order" asp-action="Decoration">Оплатить</a>
+
+</div>

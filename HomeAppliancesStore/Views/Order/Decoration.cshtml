@@ -1,0 +1,59 @@
+﻿@model Order
+<link rel="stylesheet" href="~/css/Errors.css"/>
+<div class="container">
+    <h3 align="center">Оформление заказа</h3>
+    <form asp-action="Decoration" method="post" class="form-horizontal">
+        <div asp-validation-summary="All"></div>
+        <div class="form-group">
+            <label asp-for="FirstName"></label>
+            <div class="col-md-5">
+                <input asp-for="FirstName" class="form-control" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="LastName"></label>
+            <div class="col-md-5">
+                <input asp-for="LastName" class="form-control" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Phone"></label>
+            <div class="col-md-5">
+                <input asp-for="Phone" class="form-control" />
+                <span asp-validation-for="Phone" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Email"></label>
+            <div class="col-md-5">
+                <input asp-for="Email" class="form-control" placeholder="name@example.com" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="City"></label>
+            <div class="col-md-5">
+                <input asp-for="City" class="form-control"/>
+                <span asp-validation-for="City" class="text-danger"></span>
+            </div>
+        </div>
+            <div class="form-group">
+                <label asp-for="Street"></label>
+                <div class="col-md-5">
+                    <input asp-for="Street" class="form-control" />
+                    <span asp-validation-for="Street" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="Flat"></label>
+                <div class="col-md-5">
+                    <input asp-for="Flat" class="form-control" />
+                    <span asp-validation-for="Flat" class="text-danger"></span>
+                </div>
+            </div>
+            <input class="btn btn-success" type="submit" value="Подтвердить" />
+</form>
+</div>
