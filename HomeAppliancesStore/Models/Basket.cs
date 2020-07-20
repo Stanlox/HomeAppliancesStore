@@ -36,9 +36,14 @@ namespace HomeAppliancesStore.Models
             });
         }
 
-        public  List<BasketProduct> GetProductFromBasket()
+        public List<BasketProduct> GetProductFromBasket()
         {
             return productsFromBasket.AsEnumerable().Where(x => x.productIdInBasket == BasketId).ToList();
+        }
+
+        public IEnumerable<BasketProduct> GetProductFromBasketAftereSession()
+        {
+            return productsFromBasket;
         }
 
         public int GetCountProductFromBasket()

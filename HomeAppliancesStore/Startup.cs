@@ -32,6 +32,7 @@ namespace HomeAppliancesStore
             services.AddTransient<IProduct, ProductService>();
             services.AddTransient<IProductCategory, CategoryService>();
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddTransient<EmailService>();
             services.AddTransient<IOrders, OrderService>();
             services.AddScoped(x => Basket.IsAddedProduuctInBasket(x));
             services.AddMemoryCache();
