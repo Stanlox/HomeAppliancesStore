@@ -23,7 +23,7 @@ namespace HomeAppliancesStore.Services
                        Price = 2100M,
                        isAvailable = true,
                        img = "/img/XR.png",
-                       Category = productCategory.allCategory.Last(),
+                       Category = productCategory.allCategory.ToList()[1],
                     },
                     new Product
                     {
@@ -32,7 +32,7 @@ namespace HomeAppliancesStore.Services
                        Price = 2010M,
                        isAvailable = true,
                        img = "/img/XS.jpg",
-                       Category = productCategory.allCategory.Last(),
+                       Category = productCategory.allCategory.ToList()[1],
                     },
                     new Product
                     {
@@ -41,7 +41,7 @@ namespace HomeAppliancesStore.Services
                        Price = 1980M,
                        isAvailable = true,
                        img = "/img/X.png",
-                       Category = productCategory.allCategory.Last(),
+                       Category = productCategory.allCategory.ToList()[1],
                     },
                     new Product
                     {
@@ -50,7 +50,7 @@ namespace HomeAppliancesStore.Services
                        Price = 1342M,
                        isAvailable = true,
                        img = "/img/7.jpg",
-                       Category = productCategory.allCategory.Last(),
+                       Category = productCategory.allCategory.ToList()[1],
                     },
                     new Product
                     {
@@ -59,7 +59,7 @@ namespace HomeAppliancesStore.Services
                        Price = 877M,
                        isAvailable = true,
                        img = "/img/SEpng.png",
-                       Category = productCategory.allCategory.Last(),
+                       Category = productCategory.allCategory.ToList()[1],
                     },
                     new Product
                     {
@@ -88,6 +88,60 @@ namespace HomeAppliancesStore.Services
                        img = "/img/HP.jpeg",
                        Category = productCategory.allCategory.First(),
                     },
+                    new Product
+                    {
+                        ProductId = 7,
+                        Name = "Prestigio Wize 4117",
+                        Price = 903M,
+                        isAvailable = true,
+                        img = "/img/4111.jpeg",
+                        Category = productCategory.allCategory.ToList()[2]
+                    },
+                    new Product
+                    {
+                        ProductId = 8,
+                        Name = "Prestigio Wize 4111",
+                        Price = 880M,
+                        isAvailable = true,
+                        img = "/img/4117.png",
+                        Category = productCategory.allCategory.ToList()[2]
+                    },
+                    new Product
+                    {
+                        ProductId = 9,
+                        Name = "Galaxy Tab",
+                        Price = 679M,
+                        isAvailable = true,
+                        img = "/img/tab.jpeg",
+                        Category = productCategory.allCategory.ToList()[2]
+                    },
+                    new Product
+                    {
+                        ProductId = 10,
+                        Name = "Epson EB-U05",
+                        Price = 2263.70M,
+                        isAvailable = false,
+                        img = "/img/epson.png",
+                        Category = productCategory.allCategory.Last()
+                    },
+                    new Product
+                    {
+                        ProductId = 11,
+                        Name = "Panasonic PT-TW350",
+                        Price = 2318.62M,
+                        isAvailable = false,
+                        img = "/img/tab.jpeg",
+                        Category = productCategory.allCategory.Last()
+                    },
+                    new Product
+                    {
+                        ProductId = 12,
+                        Name = "Epson EB-W39",
+                        Price = 1849.92M,
+                        isAvailable = true,
+                        img = "/img/EB.png",
+                        Category = productCategory.allCategory.Last()
+                    }
                 };
             }
         }

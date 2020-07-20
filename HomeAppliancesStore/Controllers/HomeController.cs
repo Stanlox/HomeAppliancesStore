@@ -15,11 +15,14 @@ namespace HomeAppliancesStore.Controllers
         private readonly IProduct product;
         private static string NameDeviceCategory = "Все товары";
         private IEnumerable<Product> productsByCategoria = new List<Product>();
+
         delegate IEnumerable<Product> GetProducts(IEnumerable<Product> productsByCategoria, string nameCategory, IProduct product);
         private Tuple<string, GetProducts>[] commands = new Tuple<string, GetProducts>[]
          {
                 new Tuple<string, GetProducts>("phones", GetPhones),
                 new Tuple<string, GetProducts>("laptop", GetLaptop),
+                new Tuple<string, GetProducts>("tablets", GetTablets),
+                new Tuple<string, GetProducts>("projectors", GetProjectors)
          };
   
 
@@ -82,6 +85,18 @@ namespace HomeAppliancesStore.Controllers
         {
             NameDeviceCategory = "Ноутбуки";
             return productsByCategory = product.products.Where(i => i.Category.categoryName.Equals("Ноутбуки"));
+        }
+
+        public static IEnumerable<Product> GetTablets(IEnumerable<Product> productsByCategory, string nameCategory, IProduct product)
+        {
+            NameDeviceCategory = "Планшеты";
+            return productsByCategory = product.products.Where(i => i.Category.categoryName.Equals("Планшеты"));
+        }
+
+        public static IEnumerable<Product> GetProjectors(IEnumerable<Product> productsByCategory, string nameCategory, IProduct product)
+        {
+            NameDeviceCategory = "Проекторы";
+            return productsByCategory = product.products.Where(i => i.Category.categoryName.Equals("Проекторы"));
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

@@ -17,7 +17,9 @@ namespace HomeAppliancesStore.Services
                 return new List<CategoryProduct>
                 {
                     new CategoryProduct {categoryName = "Ноутбуки"},
-                    new CategoryProduct {categoryName = "Мобильные телефоны"}
+                    new CategoryProduct {categoryName = "Мобильные телефоны"},
+                    new CategoryProduct {categoryName = "Планшеты"},
+                    new CategoryProduct {categoryName = "Проекторы"}                 
                 };
             }
         }
