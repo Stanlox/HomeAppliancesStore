@@ -1,0 +1,18 @@
+﻿@model List<List<Product>>
+<h3 align="center">Возможно вы искали</h3>
+<div class="row mt-5 mb-2">
+    @foreach (List<Product> products in Model)
+    {
+        @foreach (var product in products)
+        {
+            if (product.isAvailable == false)
+            {
+                @await Html.PartialAsync("NotAvailable", product)
+            }
+            else
+            {
+                @await Html.PartialAsync("Products", product)
+            }
+        }
+    }
+</div>
