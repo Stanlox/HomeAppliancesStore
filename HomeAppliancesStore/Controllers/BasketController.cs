@@ -1,4 +1,5 @@
-﻿using HomeAppliancesStore.Interfaces;
+﻿using HomeAppliancesStore.Filter;
+using HomeAppliancesStore.Interfaces;
 using HomeAppliancesStore.Models;
 using HomeAppliancesStore.Services;
 using HomeAppliancesStore.ViewModels;
@@ -10,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace HomeAppliancesStore.Controllers
 {
+    [CountRequest]
     public class BasketController : Controller
     {
         private Basket basket = new Basket();

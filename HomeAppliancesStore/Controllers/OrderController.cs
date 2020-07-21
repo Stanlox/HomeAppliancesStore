@@ -1,4 +1,5 @@
-﻿using HomeAppliancesStore.Interfaces;
+﻿using HomeAppliancesStore.Filter;
+using HomeAppliancesStore.Interfaces;
 using HomeAppliancesStore.Models;
 using HomeAppliancesStore.Services;
 using Microsoft.AspNetCore.Mvc;

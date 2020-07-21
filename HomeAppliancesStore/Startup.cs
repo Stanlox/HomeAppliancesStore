@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using HomeAppliancesStore.Controllers;
+using HomeAppliancesStore.Filter;
 using HomeAppliancesStore.Interfaces;
 using HomeAppliancesStore.Models;
 using HomeAppliancesStore.Services;
@@ -35,6 +36,12 @@ namespace HomeAppliancesStore
             services.AddTransient<EmailService>();
             services.AddTransient<IOrders, OrderService>();
             services.AddScoped(x => Basket.IsAddedProduuctInBasket(x));
+            services.AddMvc(
+                config =>
+                {
+                    config.Filters.Add(new CountRequestAttribute());
+                });
+                
             services.AddMemoryCache();
             services.AddSession();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);

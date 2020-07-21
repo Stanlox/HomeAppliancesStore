@@ -1,0 +1,32 @@
+﻿@using Microsoft.AspNetCore.Http;
+@model Dictionary<DateTime, HttpRequest>
+
+
+<h2>Общее количество запросов: @ViewBag.Message</h2>
+<div class="panel-body">
+    <table class="table table-sm table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>№</th>
+                <th>Время</th>
+                <th>Путь</th>
+                <th>Метод</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                int i = 1;
+            }
+            @foreach (var item in Model.Values)
+            {
+                <tr>
+                    <td>@i</td>
+                    <td>@Model.FirstOrDefault(x => x.Value == item).Key</td>
+                    <td>@item.Path</td>
+                    <td>@item.Method</td>
+                </tr>
+                i++;
+            }
+        </tbody>
+        </table>
+</div>

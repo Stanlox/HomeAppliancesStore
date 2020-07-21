@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using HomeAppliancesStore.Models;
 using HomeAppliancesStore.Interfaces;
 using HomeAppliancesStore.ViewModels;
+using HomeAppliancesStore.Filter;
 
 namespace HomeAppliancesStore.Controllers
 {
@@ -30,6 +31,7 @@ namespace HomeAppliancesStore.Controllers
         {
             this.product = product;
         }
+
         public ViewResult Index()
         {
             ViewBag.Message = "Добро пожаловать на сайт интернет-магазина продажи бытовой техники.";
@@ -73,6 +75,15 @@ namespace HomeAppliancesStore.Controllers
             };
 
             return View(availableProduct);
+        }
+
+        public ViewResult GetRequest()
+        {
+
+            var count = CountRequestAttribute.GetCountRequest();
+            var info = CountRequestAttribute.GetMoreInformationAboutRequest();
+            ViewBag.Message = ++count;
+            return View(info);
         }
 
         public static IEnumerable<Product> GetPhones(IEnumerable<Product> productsByCategory, string nameCategory, IProduct product)
