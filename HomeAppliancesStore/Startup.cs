@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using HomeAppliancesStore.Controllers;
@@ -40,6 +41,12 @@ namespace HomeAppliancesStore
                 config =>
                 {
                     config.Filters.Add(new CountRequestAttribute());
+                });
+            services.AddMvc(
+                config =>
+                {
+
+                    config.Filters.Add(new ExceptionFilterAttribute());
                 });
                 
             services.AddMemoryCache();
