@@ -51,5 +51,11 @@ namespace HomeAppliancesStore.Models
             listProducts = productsFromBasket;
             return listProducts.Count();
         }
+
+        public void DeleteProductFromBasket(int id)
+        {
+            var productToRemove = productsFromBasket.Single(x => x.Id == id);
+            productsFromBasket.Remove(productToRemove);
+        }
     }
 }

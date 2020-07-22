@@ -1,11 +1,21 @@
 ﻿@model HomeAppliancesStore.ViewModels.BasketViewModel
+    <style type="text/css">
+        .topright {
+            position: absolute;
+            top: 0;
+            right: 0;
+        }
+    </style>
 <div class="container">
     @foreach (var item in Model.basket.listProducts)
     {
-        <div class="alert alert-warning mt-3">
-            <b>Гаджет:</b>@item.product.Name<br />
-            <b>Цена:</b>@item.product.Price.ToString("# руб")
-        </div>
+    <div class="alert alert-warning mt-3">
+        <b>Гаджет: </b>@item.product.Name<br />
+        <b>Цена: </b>@item.product.Price.ToString("# руб")
+    <div class="topright">
+        @Html.ActionLink("❌", "DeleteProduct", "Basket", new { id = item.Id })
+    </div>
+    </div>
     }
     <hr />
     <a class="btn btn-danger" asp-controller="Order" asp-action="Decoration">Оплатить</a>

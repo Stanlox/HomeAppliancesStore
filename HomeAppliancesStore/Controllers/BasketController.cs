@@ -14,11 +14,12 @@ namespace HomeAppliancesStore.Controllers
     [CountRequest]
     public class BasketController : Controller
     {
-        private Basket basket = new Basket();
+        private Basket basket;
         private IProduct productService;
 
-        public BasketController(IProduct productService)
+        public BasketController(IProduct productService, Basket basket)
         {
+            this.basket = basket;
             this.productService = productService;
         }
         public ViewResult Index()
@@ -32,6 +33,12 @@ namespace HomeAppliancesStore.Controllers
             };
 
             return View(basketViewModel);
+        }
+
+        public IActionResult DeleteProduct(int id)
+        {
+            basket.DeleteProductFromBasket(id);
+            return RedirectToAction("Index");
         }
 
         public RedirectToActionResult AddInBasket(int id)

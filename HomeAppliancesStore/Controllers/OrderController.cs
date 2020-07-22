@@ -16,15 +16,12 @@ namespace HomeAppliancesStore.Controllers
     {
         private readonly IOrders orders;
         private readonly Basket basket;
-        private readonly ILogger<OrderController> logger;
         private readonly EmailService service;
 
-        public OrderController(IOrders orders, Basket basket
-            , ILogger<OrderController> logger, EmailService service)
+        public OrderController(IOrders orders, Basket basket, EmailService service)
         {
             this.orders = orders;
             this.basket = basket;
-            this.logger = logger;
             this.service = service;
         }
 

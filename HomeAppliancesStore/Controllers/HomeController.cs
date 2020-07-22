@@ -40,8 +40,6 @@ namespace HomeAppliancesStore.Controllers
 
         public ViewResult Contacts()
         {
-            int x = 0;
-            int y = 10 / x;
             return View();
         }
 
