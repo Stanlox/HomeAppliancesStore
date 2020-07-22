@@ -8,11 +8,13 @@ using HomeAppliancesStore.Filter;
 using HomeAppliancesStore.Interfaces;
 using HomeAppliancesStore.Models;
 using HomeAppliancesStore.Services;
+using HomeAppliancesStore.ViewModels;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
@@ -21,8 +23,10 @@ namespace HomeAppliancesStore
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        private IConfigurationRoot conf;
+        public Startup(IConfiguration configuration, IHostingEnvironment host)
         {
+            conf = new ConfigurationBuilder().SetBasePath(host.ContentRootPath).AddJsonFile("appsettings.json").Build();
             Configuration = configuration;
         }
 
@@ -31,6 +35,7 @@ namespace HomeAppliancesStore
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<ApplicationDbContent>(options => options.UseSqlServer(conf.GetConnectionString("DefaultConnection")));
             services.AddTransient<IProduct, ProductService>();
             services.AddTransient<IProductCategory, CategoryService>();
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();

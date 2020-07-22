@@ -71,7 +71,7 @@ namespace HomeAppliancesStore.Controllers
         {
             var availableProduct = new AvailableViewModel
             {
-                availableProduct = product.availableProduct()
+                availableProduct = product.availableProduct
             };
 
             return View(availableProduct);
@@ -89,25 +89,25 @@ namespace HomeAppliancesStore.Controllers
         public static IEnumerable<Product> GetPhones(IEnumerable<Product> productsByCategory, string nameCategory, IProduct product)
         {
             NameDeviceCategory = "Мобильные телефоны";
-            return productsByCategory = product.products.Where(i => i.Category.categoryName.Equals(NameDeviceCategory));
+            return productsByCategory = product.products.Where(i => i.Category.categoryName.Equals(NameDeviceCategory, StringComparison.InvariantCultureIgnoreCase));
         }
 
         public static IEnumerable<Product> GetLaptop(IEnumerable<Product> productsByCategory, string nameCategory, IProduct product)
         {
             NameDeviceCategory = "Ноутбуки";
-            return productsByCategory = product.products.Where(i => i.Category.categoryName.Equals(NameDeviceCategory));
+            return productsByCategory = product.products.Where(i => i.Category.categoryName.Equals(NameDeviceCategory, StringComparison.InvariantCultureIgnoreCase));
         }
 
         public static IEnumerable<Product> GetTablets(IEnumerable<Product> productsByCategory, string nameCategory, IProduct product)
         {
             NameDeviceCategory = "Планшеты";
-            return productsByCategory = product.products.Where(i => i.Category.categoryName.Equals(NameDeviceCategory));
+            return productsByCategory = product.products.Where(i => i.Category.categoryName.Equals(NameDeviceCategory, StringComparison.InvariantCultureIgnoreCase));
         }
 
         public static IEnumerable<Product> GetProjectors(IEnumerable<Product> productsByCategory, string nameCategory, IProduct product)
         {
             NameDeviceCategory = "Проекторы";
-            return productsByCategory = product.products.Where(i => i.Category.categoryName.Equals(NameDeviceCategory));
+            return productsByCategory = product.products.Where(i => i.Category.categoryName.Equals(NameDeviceCategory, StringComparison.InvariantCultureIgnoreCase));
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

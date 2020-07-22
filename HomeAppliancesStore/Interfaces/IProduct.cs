@@ -16,6 +16,6 @@ namespace HomeAppliancesStore.Interfaces
         /// <summary>
         /// Gets a list of available products.
         /// </summary>
-        IEnumerable<Product> availableProduct();
+        IEnumerable<Product> availableProduct { get; }
     }
 }

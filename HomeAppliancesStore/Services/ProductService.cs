@@ -146,9 +146,12 @@ namespace HomeAppliancesStore.Services
             }
         }
 
-        public IEnumerable<Product> availableProduct()
+        public IEnumerable<Product> availableProduct
         {
-            return products.Where(x => x.isAvailable == true);
+            get
+            {
+                return products.Where(x => x.isAvailable == true);
+            }
         }
     }
 }
