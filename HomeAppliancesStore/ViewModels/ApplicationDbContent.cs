@@ -14,6 +14,6 @@ namespace HomeAppliancesStore.ViewModels
         { }
 
         public DbSet<Product> Product { get; set; }
-        public DbSet<CategoryProduct> Caategory { get; set; }
+        public DbSet<CategoryProduct> Category { get; set; }
     }
 }

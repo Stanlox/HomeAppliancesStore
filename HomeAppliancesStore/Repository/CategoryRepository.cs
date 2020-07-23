@@ -20,7 +20,7 @@ namespace HomeAppliancesStore.Repository
         {
             get
             {
-                return dbContent.Caategory; 
+                return dbContent.Category; 
             }
         }
     }

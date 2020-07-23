@@ -4,9 +4,11 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using HomeAppliancesStore.Controllers;
+using HomeAppliancesStore.DTO;
 using HomeAppliancesStore.Filter;
 using HomeAppliancesStore.Interfaces;
 using HomeAppliancesStore.Models;
+using HomeAppliancesStore.Repository;
 using HomeAppliancesStore.Services;
 using HomeAppliancesStore.ViewModels;
 using Microsoft.AspNetCore.Builder;
@@ -36,8 +38,8 @@ namespace HomeAppliancesStore
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationDbContent>(options => options.UseSqlServer(conf.GetConnectionString("DefaultConnection")));
-            services.AddTransient<IProduct, ProductService>();
-            services.AddTransient<IProductCategory, CategoryService>();
+            services.AddTransient<IProduct, ProductRepository>();
+            services.AddTransient<IProductCategory, CategoryRepository>();
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddTransient<EmailService>();
             services.AddTransient<IOrders, OrderService>();
@@ -84,6 +86,12 @@ namespace HomeAppliancesStore
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{nameCategory?}");
             });
+
+            using (var serviceScope = app.ApplicationServices.CreateScope())
+            {
+                ApplicationDbContent content = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContent>();
+                ProductDto.Initial(content);
+            }
         }
     }
 }
