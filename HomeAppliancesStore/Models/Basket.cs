@@ -5,22 +5,29 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using HomeAppliancesStore.ViewModels;
 
 namespace HomeAppliancesStore.Models
 {
     public class Basket
     {
-        private static List<BasketProduct> productsFromBasket = new List<BasketProduct>();
+        private readonly ApplicationDbContent dbContent;
+        public Basket(ApplicationDbContent dbContent)
+        {
+            this.dbContent = dbContent;
+        }
+
+        public List<BasketProduct> productsFromBasket { get; set; }
         public string BasketId { get; set; } = String.Empty;
 
-        public List<BasketProduct> listProducts { get; set; }
 
         public static Basket IsAddedProduuctInBasket(IServiceProvider service)
         {
             ISession session = service.GetRequiredService<IHttpContextAccessor>()?.HttpContext.Session;
+            var context = service.GetService<ApplicationDbContent>();
             var basketId = session.GetString("BasketId") ?? Guid.NewGuid().ToString();
             session.SetString("BasketId", basketId);
-            return new Basket()
+            return new Basket(context)
             {
                 BasketId = basketId
             };
@@ -28,34 +35,30 @@ namespace HomeAppliancesStore.Models
 
         public void AddProductInBasket(Product product)
         {
-            productsFromBasket.Add(new BasketProduct
+            this.dbContent.BasketProduct.Add(new BasketProduct
             {
-                product = product,
-                Id = product.ProductId,
                 productIdInBasket = BasketId,
+                product = product,
             });
+
+            this.dbContent.SaveChanges();
         }
 
         public List<BasketProduct> GetProductFromBasket()
         {
-            return productsFromBasket.AsEnumerable().Where(x => x.productIdInBasket == BasketId).ToList();
-        }
-
-        public IEnumerable<BasketProduct> GetProductFromBasketAftereSession()
-        {
-            return productsFromBasket;
+            return this.dbContent.BasketProduct.Where(x => x.productIdInBasket == BasketId).Include(x => x.product).ToList();
         }
 
         public int GetCountProductFromBasket()
         {
-            listProducts = productsFromBasket;
-            return listProducts.Count();
+            return dbContent.BasketProduct.Count();
         }
 
         public void DeleteProductFromBasket(int id)
         {
-            var productToRemove = productsFromBasket.Single(x => x.Id == id);
-            productsFromBasket.Remove(productToRemove);
+            var productToRemove = this.dbContent.BasketProduct.Single(x => x.Id == id);
+            this.dbContent.BasketProduct.Remove(productToRemove);
+            this.dbContent.SaveChanges();
         }
     }
 }

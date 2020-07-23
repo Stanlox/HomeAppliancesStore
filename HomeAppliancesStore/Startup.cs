@@ -40,21 +40,21 @@ namespace HomeAppliancesStore
             services.AddDbContext<ApplicationDbContent>(options => options.UseSqlServer(conf.GetConnectionString("DefaultConnection")));
             services.AddTransient<IProduct, ProductRepository>();
             services.AddTransient<IProductCategory, CategoryRepository>();
+            services.AddTransient<IOrders, OrderRepository>();
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddTransient<EmailService>();
-            services.AddTransient<IOrders, OrderService>();
             services.AddScoped(x => Basket.IsAddedProduuctInBasket(x));
             services.AddMvc(
                 config =>
                 {
                     config.Filters.Add(new CountRequestAttribute());
                 });
-            services.AddMvc(
-                config =>
-                {
+            //services.AddMvc(
+            //    config =>
+            //    {
 
-                    config.Filters.Add(new ExceptionFilterAttribute());
-                });
+            //        config.Filters.Add(new ExceptionFilterAttribute());
+            //    });
                 
             services.AddMemoryCache();
             services.AddSession();

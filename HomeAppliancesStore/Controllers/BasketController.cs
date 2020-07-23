@@ -1,6 +1,7 @@
 ﻿using HomeAppliancesStore.Filter;
 using HomeAppliancesStore.Interfaces;
 using HomeAppliancesStore.Models;
+using HomeAppliancesStore.Repository;
 using HomeAppliancesStore.Services;
 using HomeAppliancesStore.ViewModels;
 using Microsoft.AspNetCore.Mvc;
@@ -14,18 +15,18 @@ namespace HomeAppliancesStore.Controllers
     [CountRequest]
     public class BasketController : Controller
     {
-        private Basket basket;
-        private IProduct productService;
+        private readonly IProduct product;
+        private readonly Basket basket;
 
-        public BasketController(IProduct productService, Basket basket)
+        public BasketController(IProduct product, Basket basket)
         {
             this.basket = basket;
-            this.productService = productService;
+            this.product = product;
         }
         public ViewResult Index()
         {
             var product = basket.GetProductFromBasket();
-            basket.listProducts = product;
+            basket.productsFromBasket = product;
 
             var basketViewModel = new BasketViewModel
             {
@@ -43,10 +44,10 @@ namespace HomeAppliancesStore.Controllers
 
         public RedirectToActionResult AddInBasket(int id)
         {
-            var product = productService.products.FirstOrDefault(x => x.ProductId == id);
+            var concreteProduct = product.products.FirstOrDefault(x => x.Id == id);
             if(product != null)
             {
-                basket.AddProductInBasket(product);
+                basket.AddProductInBasket(concreteProduct);
             }
 
             return RedirectToAction("Index"); 
