@@ -9,6 +9,9 @@ namespace HomeAppliancesStore.Models
 {
     public class Order
     {
+        [BindNever]
+        public int id { get; set; }
+
         [Display(Name = "Имя")]
         [Required(ErrorMessage = "Не указано имя")]
         [StringLength(20, MinimumLength = 3, ErrorMessage = "Недопустимая длина имени")]

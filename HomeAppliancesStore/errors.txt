@@ -1,0 +1,11 @@
+ Заголовок: Microsoft.AspNetCore.HttpSys.Internal.RequestHeaders 
+ Тип запроса: GET 
+ В методе HomeAppliancesStore.Controllers.BasketController.AddInBasket (HomeAppliancesStore) возникло иссключение: 
+ Unable to resolve service for type 'HomeAppliancesStore.Repository.ProductRepository' while attempting to activate 'HomeAppliancesStore.Controllers.BasketController'. 
+    at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.GetService(IServiceProvider sp, Type type, Type requiredBy, Boolean isDefaultParameterRequired)
+   at lambda_method(Closure , IServiceProvider , Object[] )
+   at Microsoft.AspNetCore.Mvc.Controllers.ControllerActivatorProvider.<>c__DisplayClass4_0.<CreateActivator>b__0(ControllerContext controllerContext)
+   at Microsoft.AspNetCore.Mvc.Controllers.ControllerFactoryProvider.<>c__DisplayClass5_0.<CreateControllerFactory>g__CreateController|0(ControllerContext controllerContext)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeInnerFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeNextExceptionFilterAsync()

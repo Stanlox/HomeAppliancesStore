@@ -7,7 +7,7 @@
         }
     </style>
 <div class="container">
-    @foreach (var item in Model.basket.listProducts)
+    @foreach (var item in Model.basket.productsFromBasket)
     {
     <div class="alert alert-warning mt-3">
         <b>Гаджет: </b>@item.product.Name<br />

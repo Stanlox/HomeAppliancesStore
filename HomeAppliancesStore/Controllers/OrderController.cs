@@ -53,8 +53,8 @@ namespace HomeAppliancesStore.Controllers
         {
             ViewBag.Message = $"Заказ успешно обработан, дополнительная информация вышлена вам на почту по адресу {order.Email}";
             var textMessage = string.Empty;
-            basket.listProducts = basket.GetProductFromBasketAftereSession().ToList();
-            var products = basket.listProducts;
+            basket.productsFromBasket = basket.GetProductFromBasket().ToList();
+            var products = basket.productsFromBasket;
             StringBuilder builder = new StringBuilder();
             builder.Append("Ваш заказ принят, спасибо что выбрали нас! ");
             foreach (var orderedProduct in products)

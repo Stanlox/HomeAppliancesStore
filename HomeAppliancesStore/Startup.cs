@@ -4,15 +4,19 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using HomeAppliancesStore.Controllers;
+using HomeAppliancesStore.DTO;
 using HomeAppliancesStore.Filter;
 using HomeAppliancesStore.Interfaces;
 using HomeAppliancesStore.Models;
+using HomeAppliancesStore.Repository;
 using HomeAppliancesStore.Services;
+using HomeAppliancesStore.ViewModels;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
@@ -21,8 +25,10 @@ namespace HomeAppliancesStore
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        private IConfigurationRoot conf;
+        public Startup(IConfiguration configuration, IHostingEnvironment host)
         {
+            conf = new ConfigurationBuilder().SetBasePath(host.ContentRootPath).AddJsonFile("appsettings.json").Build();
             Configuration = configuration;
         }
 
@@ -31,23 +37,24 @@ namespace HomeAppliancesStore
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddTransient<IProduct, ProductService>();
-            services.AddTransient<IProductCategory, CategoryService>();
+            services.AddDbContext<ApplicationDbContent>(options => options.UseSqlServer(conf.GetConnectionString("DefaultConnection")));
+            services.AddTransient<IProduct, ProductRepository>();
+            services.AddTransient<IProductCategory, CategoryRepository>();
+            services.AddTransient<IOrders, OrderRepository>();
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddTransient<EmailService>();
-            services.AddTransient<IOrders, OrderService>();
             services.AddScoped(x => Basket.IsAddedProduuctInBasket(x));
             services.AddMvc(
                 config =>
                 {
                     config.Filters.Add(new CountRequestAttribute());
                 });
-            services.AddMvc(
-                config =>
-                {
+            //services.AddMvc(
+            //    config =>
+            //    {
 
-                    config.Filters.Add(new ExceptionFilterAttribute());
-                });
+            //        config.Filters.Add(new ExceptionFilterAttribute());
+            //    });
                 
             services.AddMemoryCache();
             services.AddSession();
@@ -79,6 +86,12 @@ namespace HomeAppliancesStore
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{nameCategory?}");
             });
+
+            using (var serviceScope = app.ApplicationServices.CreateScope())
+            {
+                ApplicationDbContent content = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContent>();
+                ProductDto.Initial(content);
+            }
         }
     }
 }

@@ -7,7 +7,7 @@ namespace HomeAppliancesStore.Models
 {
     public class Product
     {
-        public int ProductId { get; set; }
+        public int Id { get; set; }
 
         public string Name { get; set; }
 
