@@ -24,10 +24,33 @@ namespace HomeAppliancesStore.Controllers
             return View();
         }
 
+        public ViewResult ListUsers()
+        {
+            return View(this.userManager.Users);
+        }
+
         [HttpGet]
         public ViewResult Create()
         {
             return View();
+        }
+
+        public async Task<IActionResult> Delete(string id)
+        {
+            User user = await userManager.FindByIdAsync(id);
+            if(user != null)
+            {
+                IdentityResult result = await this.userManager.DeleteAsync(user);
+                if (!result.Succeeded)
+                {
+                    foreach (var error in result.Errors)
+                    {
+                        ModelState.AddModelError("", error.Description);
+                    }
+                }
+            }
+
+            return RedirectToAction("ListUsers");
         }
 
         [HttpPost]

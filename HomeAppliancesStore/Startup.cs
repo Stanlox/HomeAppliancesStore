@@ -57,6 +57,7 @@ namespace HomeAppliancesStore
                     config.Filters.Add(new ExceptionFilterAttribute());
                 });
             services.AddIdentity<User, IdentityRole>(options => {
+                options.User.RequireUniqueEmail = true;
                 options.Password.RequiredLength = 6;
                 options.Password.RequireUppercase = false;
                 options.Password.RequireNonAlphanumeric = false;
