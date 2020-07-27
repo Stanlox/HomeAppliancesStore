@@ -49,13 +49,13 @@ namespace HomeAppliancesStore
                 {
                     config.Filters.Add(new CountRequestAttribute());
                 });
-            //services.AddMvc(
-            //    config =>
-            //    {
+            services.AddMvc(
+                config =>
+                {
 
-            //        config.Filters.Add(new ExceptionFilterAttribute());
-            //    });
-                
+                    config.Filters.Add(new ExceptionFilterAttribute());
+                });
+
             services.AddMemoryCache();
             services.AddSession();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
