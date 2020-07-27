@@ -1,4 +1,5 @@
 ﻿using HomeAppliancesStore.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace HomeAppliancesStore.ViewModels
 {
-    public class ApplicationDbContent : DbContext
+    public class ApplicationDbContent : IdentityDbContext<User>
     {
         public ApplicationDbContent(DbContextOptions<ApplicationDbContent> options)
             : base(options)
