@@ -37,7 +37,11 @@ namespace HomeAppliancesStore.Controllers
             {
                 User user = await userManager.FindByEmailAsync(details.Email);
 
-                if(user != null)
+                if(user == null)
+                {
+                    ModelState.AddModelError(nameof(details.Email), $"'There is no user this {details.Email} address'");
+                }
+                else
                 {
                     await signInManager.SignOutAsync();
                     SignInResult result = await signInManager.PasswordSignInAsync(user, details.Password, false, false);
@@ -47,9 +51,6 @@ namespace HomeAppliancesStore.Controllers
                         return Redirect(url ?? "/");
                     }
                 }
-
-                ModelState.AddModelError(nameof(details.Email), "Invalid user or password");
-
             }
 
             return View(details);

@@ -1,6 +1,6 @@
 ﻿@model HomeAppliancesStore.ViewModels.LoginViewModel
 
-<div class="bg-primary m-1 p-1 text-white"><h4>Log In</h4></div>
+<div class="bg-secondary m-1 p-1 text-white"><h4>Вход</h4></div>
 <div class="text-danger" asp-validation-summary="All"></div>
 <form asp-action="Login" method="post">
     <input type="hidden" name="url" value="@ViewBag.Message"/>
@@ -12,5 +12,5 @@
         <label asp-for="Password"></label>
         <input asp-for="Password" class="form-control" />
     </div>
-    <button class="btn btn-primary" type="submit">Log In</button>
+    <button class="btn btn-secondary" type="submit">Log In</button>
 </form>

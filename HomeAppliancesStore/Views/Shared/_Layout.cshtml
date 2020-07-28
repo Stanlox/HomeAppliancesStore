@@ -5,12 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - HomeAppliancesStore</title>
     <style type="text/css">
-        .corner{
-            position:absolute;
-            top:15px;
-            right:10px;
+        .corner {
+            position: absolute;
+            top: 15px;
+            right: 10px;
+        }
+
+        .login {
+            position: absolute;
+            top: 15px;
+            right: 135px;
         }
     </style>
+
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="~/css/header.css" />
@@ -60,6 +67,9 @@
                     </div>
                 </div>
             </div>
+            <form asp-controller="Account" asp-action="Login" method="get" class="login">
+                <button class="btn btn-primary" type="submit">Вход</button>
+            </form>
             <form asp-controller="Admin" asp-action="Create" method="get" class="corner">
                 <button class="btn btn-primary" type="submit">Регистрация</button>
             </form>
