@@ -8,6 +8,7 @@ using HomeAppliancesStore.Models;
 using HomeAppliancesStore.Interfaces;
 using HomeAppliancesStore.ViewModels;
 using HomeAppliancesStore.Filter;
+using Microsoft.AspNetCore.Authorization;
 
 namespace HomeAppliancesStore.Controllers
 {
@@ -77,6 +78,7 @@ namespace HomeAppliancesStore.Controllers
             return View(availableProduct);
         }
 
+        [Authorize]
         public ViewResult GetRequest()
         {
 

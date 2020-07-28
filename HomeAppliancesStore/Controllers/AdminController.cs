@@ -11,7 +11,7 @@ namespace HomeAppliancesStore.Controllers
 {
     public class AdminController : Controller
     {
-        private UserManager<User> userManager;
+        private readonly UserManager<User> userManager;
 
         public AdminController(UserManager<User> userManager)
         {
