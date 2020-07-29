@@ -1,5 +1,6 @@
 ﻿using HomeAppliancesStore.Models;
 using HomeAppliancesStore.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace HomeAppliancesStore.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
         private readonly UserManager<User> userManager;
@@ -18,6 +20,7 @@ namespace HomeAppliancesStore.Controllers
             this.userManager = userManager;
         }
 
+        [AllowAnonymous]
         public ViewResult Index()
         {
             ViewBag.Message = "Вы успешно зарегестрировались!";
@@ -34,6 +37,7 @@ namespace HomeAppliancesStore.Controllers
         {
             return View();
         }
+
 
         public async Task<IActionResult> Delete(string id)
         {

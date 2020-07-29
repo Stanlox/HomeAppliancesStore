@@ -49,6 +49,7 @@ namespace HomeAppliancesStore.Controllers
             if (string.IsNullOrEmpty(nameCategory))
             {
                 productsByCategoria = product.products;
+                ViewBag.Category = "Все товары";
             }
             else
             {
@@ -57,6 +58,7 @@ namespace HomeAppliancesStore.Controllers
                 if (index >= 0)
                 {
                     productsByCategoria = commands[index].Item2(productsByCategoria, nameCategory, product);
+                    ViewBag.Category = NameDeviceCategory;
                 }
             }
             var productViewModel = new ProductViewModel
@@ -78,7 +80,7 @@ namespace HomeAppliancesStore.Controllers
             return View(availableProduct);
         }
 
-        [Authorize]
+        //[Authorize(Roles="Admin")]
         public ViewResult GetRequest()
         {
 

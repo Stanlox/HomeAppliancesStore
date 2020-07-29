@@ -12,7 +12,6 @@ using SignInResult = Microsoft.AspNetCore.Identity.SignInResult;
 
 namespace HomeAppliancesStore.Controllers
 {
-    [Authorize]
     public class AccountController : Controller
     {
         private readonly SignInManager<User> signInManager;
@@ -23,7 +22,6 @@ namespace HomeAppliancesStore.Controllers
             this.userManager = userManager;
         }
 
-        [AllowAnonymous]
         public ViewResult Login(string url)
         {
             ViewBag.Message = url;
@@ -31,7 +29,6 @@ namespace HomeAppliancesStore.Controllers
         }
 
         [HttpPost]
-        [AllowAnonymous]
         public async Task<IActionResult> Login(LoginViewModel details, string url)
         {
             if (ModelState.IsValid)

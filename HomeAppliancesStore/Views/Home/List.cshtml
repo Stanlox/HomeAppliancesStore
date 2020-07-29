@@ -4,7 +4,7 @@
     ViewData["Title"] = "List";
 }
 
-<h3 align="center">@Model.Category</h3>
+<h3 align="center">@ViewBag.Category</h3>
 <div class="row mt-5 mb-2">
     @foreach (Product item in Model.products)
     {

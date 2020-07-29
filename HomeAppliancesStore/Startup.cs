@@ -26,14 +26,13 @@ namespace HomeAppliancesStore
 {
     public class Startup
     {
+        private IConfiguration configuration;
         private IConfigurationRoot conf;
         public Startup(IConfiguration configuration, IHostingEnvironment host)
         {
             conf = new ConfigurationBuilder().SetBasePath(host.ContentRootPath).AddJsonFile("appsettings.json").Build();
-            Configuration = configuration;
+            this.configuration = configuration;
         }
-
-        public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -90,6 +89,7 @@ namespace HomeAppliancesStore
             app.UseStaticFiles();
             app.UseCookiePolicy();
             app.UseSession();
+            ApplicationDbContent.CreateAdminAccount(app.ApplicationServices, this.configuration).Wait();
 
             app.UseMvc(routes =>
             {
