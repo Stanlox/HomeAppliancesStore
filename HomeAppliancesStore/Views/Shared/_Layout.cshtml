@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+@using static HomeAppliancesStore.Models.User
+@inject UserManager<User> userManger
+@inject SignInManager<User> signInManager
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -67,12 +71,21 @@
                     </div>
                 </div>
             </div>
-            <form asp-controller="Account" asp-action="Login" method="get" class="login">
-                <button class="btn btn-primary" type="submit">Вход</button>
-            </form>
-            <form asp-controller="Admin" asp-action="Create" method="get" class="corner">
-                <button class="btn btn-primary" type="submit">Регистрация</button>
-            </form>
+            @if (signInManager.IsSignedIn(User))
+            {
+                <form asp-controller="Account" asp-action="Logout" method="get" class="corner">
+                    <button class="btn btn-primary" type="submit">Выход</button>
+                </form>
+            }
+            else
+            {
+                <form asp-controller="Account" asp-action="Login" method="get" class="login">
+                    <button class="btn btn-primary" type="submit">Вход</button>
+                </form>
+                <form asp-controller="Admin" asp-action="Create" method="get" class="corner">
+                    <button class="btn btn-primary" type="submit">Регистрация</button>
+                </form>
+            }
         </nav>
     </header>
     <div class="container mb-5">

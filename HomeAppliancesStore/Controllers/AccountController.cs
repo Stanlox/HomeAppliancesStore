@@ -22,6 +22,7 @@ namespace HomeAppliancesStore.Controllers
             this.signInManager = signInManager;
             this.userManager = userManager;
         }
+
         [AllowAnonymous]
         public ViewResult Login(string url)
         {
@@ -54,6 +55,12 @@ namespace HomeAppliancesStore.Controllers
             }
 
             return View(details);
+        }
+
+        public async Task<IActionResult> Logout()
+        {
+            await signInManager.SignOutAsync();
+            return RedirectToAction("Login");
         }
     }
 }

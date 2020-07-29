@@ -1,0 +1,54 @@
+﻿@model HomeAppliancesStore.ViewModels.RoleEditViewModel
+
+<div class="bg-secondary m-1 p-1 text-white"><h4>Изменить роль</h4></div>
+<div asp-validation-summary="All" class="text-danger"></div>
+<form asp-action="Edit" method="post">
+    <input type="hidden" name="roleName" value="@Model.Role.Name"/>
+    <input type="hidden" name="roleId" value="@Model.Role.Id"/>
+    <h6 class="bg-info p-1 text-white">Добавить в @Model.Role.Name</h6>
+    <table class="table table-bordered table-sm">
+        @if (!Model.NotRepresentative.Any())
+        {
+            <tr>
+                <td colspan="2">У каждого пользователя есть роль</td>
+            </tr>
+        }
+        else
+        {
+            @foreach(var user in Model.NotRepresentative)
+            {
+                <tr>
+                    <td>@user.UserName</td>
+                    <td>
+                        <input type="checkbox" name="ToAdd" value="@user.Id"/>
+                    </td>
+                </tr>
+            }
+        }
+
+    </table>
+
+    <h6 class="bg-info p-1 text-white">Удалить из @Model.Role.Name</h6>
+    <table class="table table-bordered table-sm">
+        @if (!Model.Representative.Any())
+        {
+            <tr>
+                <td colspan="2">Все пользователи распределены</td>
+            </tr>
+        }
+        else
+        {
+            @foreach (var user in Model.Representative )
+            {
+                <tr>
+                    <td>@user.UserName</td>
+                    <td>
+                        <input type="checkbox" name="ToDelete" value="@user.Id" />
+                    </td>
+                </tr>
+            }
+        }
+    </table>
+    <button type="submit" class="btn btn-primary">Сохранить</button>
+    <a asp-action="Index" class="btn btn-secondary">Назад</a>
+</form>
