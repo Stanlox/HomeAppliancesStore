@@ -14,26 +14,26 @@ namespace HomeAppliancesStore.Controllers
 {
     public class AccountController : Controller
     {
+        private const string Admin = "Admin";
         private readonly SignInManager<User> signInManager;
         private readonly UserManager<User> userManager;
-        public AccountController(SignInManager<User> signInManager, UserManager<User> userManager)
+        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager)
         {
-            this.signInManager = signInManager;
             this.userManager = userManager;
+            this.signInManager = signInManager;
         }
 
-        public ViewResult Login(string url)
+        public ViewResult Login()
         {
-            ViewBag.Message = url;
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> Login(LoginViewModel details, string url)
+        public async Task<IActionResult> Login(LoginViewModel details)
         {
             if (ModelState.IsValid)
             {
-                User user = await userManager.FindByEmailAsync(details.Email);
+                User user = await this.userManager.FindByEmailAsync(details.Email);
 
                 if(user == null)
                 {
@@ -41,19 +41,31 @@ namespace HomeAppliancesStore.Controllers
                 }
                 else
                 {
-                    await signInManager.SignOutAsync();
-                    SignInResult result = await signInManager.PasswordSignInAsync(user, details.Password, false, false);
 
+                    SignInResult result = await signInManager.PasswordSignInAsync(user, details.Password, false, false);
                     if (result.Succeeded)
                     {
-                        return Redirect(url ?? "/");
+                        if (user.UserName == Admin)
+                        {
+                            return View("Admin");
+                        }
+                        else
+                        {
+                            return Redirect("/Home/Index");
+                        }
+                    }
+                    else
+                    {
+                        ModelState.AddModelError(nameof(LoginViewModel.Email), "Invalid user or password");
                     }
                 }
+
             }
 
             return View(details);
         }
 
+        [Authorize]
         public async Task<IActionResult> Logout()
         {
             await signInManager.SignOutAsync();

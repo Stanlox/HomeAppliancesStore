@@ -27,17 +27,17 @@ namespace HomeAppliancesStore
     public class Startup
     {
         private IConfiguration configuration;
-        private IConfigurationRoot conf;
+        private IConfigurationRoot configurationRoot;
         public Startup(IConfiguration configuration, IHostingEnvironment host)
         {
-            conf = new ConfigurationBuilder().SetBasePath(host.ContentRootPath).AddJsonFile("appsettings.json").Build();
+            configurationRoot = new ConfigurationBuilder().SetBasePath(host.ContentRootPath).AddJsonFile("appsettings.json").Build();
             this.configuration = configuration;
         }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ApplicationDbContent>(options => options.UseSqlServer(conf.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<ApplicationDbContent>(options => options.UseSqlServer(configurationRoot.GetConnectionString("DefaultConnection")));
             services.AddTransient<IProduct, ProductRepository>();
             services.AddTransient<IProductCategory, CategoryRepository>();
             services.AddTransient<IOrders, OrderRepository>();

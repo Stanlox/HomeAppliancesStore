@@ -80,7 +80,7 @@ namespace HomeAppliancesStore.Controllers
             return View(availableProduct);
         }
 
-        //[Authorize(Roles="Admin")]
+        [Authorize(Roles = "Admin")]
         public ViewResult GetRequest()
         {
 

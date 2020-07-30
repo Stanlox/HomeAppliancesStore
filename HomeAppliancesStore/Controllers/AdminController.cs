@@ -10,23 +10,25 @@ using System.Threading.Tasks;
 
 namespace HomeAppliancesStore.Controllers
 {
-    [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
         private readonly UserManager<User> userManager;
+        private readonly SignInManager<User> signInManager;
 
-        public AdminController(UserManager<User> userManager)
+        public AdminController(UserManager<User> userManager, SignInManager<User> signInManager)
         {
             this.userManager = userManager;
+            this.signInManager = signInManager;
         }
-
-        [AllowAnonymous]
+        
+        [Authorize]
         public ViewResult Index()
         {
             ViewBag.Message = "Вы успешно зарегестрировались!";
             return View();
         }
 
+        [Authorize(Roles = "Admin")]
         public ViewResult ListUsers()
         {
             return View(this.userManager.Users);
@@ -38,7 +40,7 @@ namespace HomeAppliancesStore.Controllers
             return View();
         }
 
-
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(string id)
         {
             User user = await userManager.FindByIdAsync(id);
@@ -72,7 +74,11 @@ namespace HomeAppliancesStore.Controllers
 
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("Index");
+                    Microsoft.AspNetCore.Identity.SignInResult resultSignIn = await signInManager.PasswordSignInAsync(user, model.Password, false, false);
+                    if (resultSignIn.Succeeded)
+                    {
+                        return RedirectToAction("Index");
+                    }
                 }
 
                 else
