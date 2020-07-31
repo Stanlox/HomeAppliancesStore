@@ -1,6 +1,9 @@
 ﻿@using Microsoft.AspNetCore.Http;
 @model Dictionary<DateTime, HttpRequest>
 
+@{
+    Layout = "_LayoutAdmin";
+}
 
 <h2>Общее количество запросов: @ViewBag.Message</h2>
 <div class="panel-body">
@@ -28,5 +31,5 @@
                 i++;
             }
         </tbody>
-        </table>
+    </table>
 </div>

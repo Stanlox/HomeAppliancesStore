@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using HomeAppliancesStore.Controllers;
 using HomeAppliancesStore.DTO;
@@ -11,6 +12,7 @@ using HomeAppliancesStore.Models;
 using HomeAppliancesStore.Repository;
 using HomeAppliancesStore.Services;
 using HomeAppliancesStore.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -28,6 +30,7 @@ namespace HomeAppliancesStore
     {
         private IConfiguration configuration;
         private IConfigurationRoot configurationRoot;
+
         public Startup(IConfiguration configuration, IHostingEnvironment host)
         {
             configurationRoot = new ConfigurationBuilder().SetBasePath(host.ContentRootPath).AddJsonFile("appsettings.json").Build();
@@ -49,12 +52,7 @@ namespace HomeAppliancesStore
                 {
                     config.Filters.Add(new CountRequestAttribute());
                 });
-            services.AddMvc(
-                config =>
-                {
-
-                    config.Filters.Add(new ExceptionFilterAttribute());
-                });
+            
             services.AddIdentity<User, IdentityRole>(options => {
                 options.User.RequireUniqueEmail = true;
                 options.Password.RequiredLength = 6;
@@ -83,7 +81,7 @@ namespace HomeAppliancesStore
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-
+  
             app.UseHttpsRedirection();
             app.UseAuthentication();
             app.UseStaticFiles();
@@ -91,12 +89,13 @@ namespace HomeAppliancesStore
             app.UseSession();
             ApplicationDbContent.CreateAdminAccount(app.ApplicationServices, this.configuration).Wait();
 
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{nameCategory?}");
-            });
+
+             app.UseMvc(routes =>
+              {
+                    routes.MapRoute(
+                        name: "default",
+                        template: "{controller=Home}/{action=Index}/{nameCategory?}");
+              });
 
             using (var serviceScope = app.ApplicationServices.CreateScope())
             {

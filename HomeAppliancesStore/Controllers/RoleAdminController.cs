@@ -1,4 +1,5 @@
-﻿using HomeAppliancesStore.Models;
+﻿using HomeAppliancesStore.Filter;
+using HomeAppliancesStore.Models;
 using HomeAppliancesStore.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -143,6 +144,20 @@ namespace HomeAppliancesStore.Controllers
             }
 
             return View("Index", roleManager.Roles);
+        }
+
+        public ViewResult GetRequest()
+        {
+
+            var count = CountRequestAttribute.GetCountRequest();
+            var info = CountRequestAttribute.GetMoreInformationAboutRequest();
+            ViewBag.Message = ++count;
+            return View(info);
+        }
+
+        public ViewResult ListUsers()
+        {
+            return View(this.userManager.Users);
         }
     }
 }

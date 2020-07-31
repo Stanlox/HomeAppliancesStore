@@ -28,12 +28,6 @@ namespace HomeAppliancesStore.Controllers
             return View();
         }
 
-        [Authorize(Roles = "Admin")]
-        public ViewResult ListUsers()
-        {
-            return View(this.userManager.Users);
-        }
-
         [HttpGet]
         public ViewResult Create()
         {

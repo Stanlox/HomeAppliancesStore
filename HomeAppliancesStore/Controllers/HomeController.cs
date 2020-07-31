@@ -9,6 +9,10 @@ using HomeAppliancesStore.Interfaces;
 using HomeAppliancesStore.ViewModels;
 using HomeAppliancesStore.Filter;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Http;
+using System.Web;
+using System.Security.Claims;
 
 namespace HomeAppliancesStore.Controllers
 {
@@ -18,6 +22,7 @@ namespace HomeAppliancesStore.Controllers
         private static string NameDeviceCategory = "Все товары";
         private IEnumerable<Product> productsByCategoria = new List<Product>();
 
+
         delegate IEnumerable<Product> GetProducts(IEnumerable<Product> productsByCategoria, string nameCategory, IProduct product);
         private Tuple<string, GetProducts>[] commands = new Tuple<string, GetProducts>[]
          {
@@ -26,12 +31,13 @@ namespace HomeAppliancesStore.Controllers
                 new Tuple<string, GetProducts>("tablets", GetTablets),
                 new Tuple<string, GetProducts>("projectors", GetProjectors)
          };
-  
+
 
         public HomeController(IProduct product, IProductCategory productCategory)
         {
             this.product = product;
         }
+
 
         public ViewResult Index()
         {
@@ -78,16 +84,6 @@ namespace HomeAppliancesStore.Controllers
             };
 
             return View(availableProduct);
-        }
-
-        [Authorize(Roles = "Admin")]
-        public ViewResult GetRequest()
-        {
-
-            var count = CountRequestAttribute.GetCountRequest();
-            var info = CountRequestAttribute.GetMoreInformationAboutRequest();
-            ViewBag.Message = ++count;
-            return View(info);
         }
 
         public static IEnumerable<Product> GetPhones(IEnumerable<Product> productsByCategory, string nameCategory, IProduct product)
