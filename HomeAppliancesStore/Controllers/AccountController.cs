@@ -43,6 +43,14 @@ namespace HomeAppliancesStore.Controllers
                 }
                 else
                 {
+                    if(user.UserName != "Admin")
+                    {
+                        if (!await userManager.IsEmailConfirmedAsync(user))
+                        {
+                            ModelState.AddModelError(string.Empty, "Вы не подтвердили свой email");
+                            return View(details);
+                        }
+                    }
 
                     SignInResult result = await signInManager.PasswordSignInAsync(user, details.Password, false, false);
                     if (result.Succeeded)

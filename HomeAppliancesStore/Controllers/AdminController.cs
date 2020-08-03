@@ -1,8 +1,10 @@
 ﻿using HomeAppliancesStore.Models;
+using HomeAppliancesStore.Services;
 using HomeAppliancesStore.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,11 +16,13 @@ namespace HomeAppliancesStore.Controllers
     {
         private readonly UserManager<User> userManager;
         private readonly SignInManager<User> signInManager;
+        private readonly EmailService service;
 
-        public AdminController(UserManager<User> userManager, SignInManager<User> signInManager)
+        public AdminController(UserManager<User> userManager, SignInManager<User> signInManager, EmailService service)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
+            this.service = service;
         }
         
         [Authorize]
@@ -33,6 +37,7 @@ namespace HomeAppliancesStore.Controllers
         {
             return View();
         }
+
 
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(string id)
@@ -68,11 +73,15 @@ namespace HomeAppliancesStore.Controllers
 
                 if (result.Succeeded)
                 {
-                    Microsoft.AspNetCore.Identity.SignInResult resultSignIn = await signInManager.PasswordSignInAsync(user, model.Password, false, false);
-                    if (resultSignIn.Succeeded)
-                    {
-                        return RedirectToAction("Index");
-                    }
+                    var code = await userManager.GenerateEmailConfirmationTokenAsync(user);
+                    var callbackUrl = Url.Action(
+                        "ConfirmEmail",
+                        "Admin",
+                        new { userId = user.Id, code = code, password = model.Password },
+                        protocol: HttpContext.Request.Scheme);
+
+                     service.SendEmail(model.Email, "Подтверждения регистрации", $"Подтвердите регистрацию, перейдя по ссылке: <a href='{callbackUrl}'>link</a>");
+                     return Content("Для завершения регистрации проверьте электронную почту и перейдите по ссылке, указанной в письме");
                 }
 
                 else
@@ -85,6 +94,21 @@ namespace HomeAppliancesStore.Controllers
             }
 
             return View(model);
+        }
+
+        public async Task<IActionResult> ConfirmEmail(string userId, string code, string password)
+        {
+            var user = await userManager.FindByIdAsync(userId);
+            var result = await userManager.ConfirmEmailAsync(user, code);
+            if (result.Succeeded)
+            {
+                Microsoft.AspNetCore.Identity.SignInResult resultSignIn = await signInManager.PasswordSignInAsync(user, password, false, false);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View("Error");
+            }
         }
     }
 }

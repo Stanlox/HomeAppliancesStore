@@ -124,11 +124,10 @@ namespace HomeAppliancesStore.Controllers
         [HttpPost]
         public async Task<IActionResult> Delete(string id)
         {
-            IdentityRole role = await roleManager.FindByIdAsync(id);
-
-            if(role != null)
+            User user = await userManager.FindByIdAsync(id);
+            if (user!= null)
             {
-                IdentityResult result = await roleManager.DeleteAsync(role);
+                IdentityResult result = await userManager.DeleteAsync(user);
 
                 if (result.Succeeded)
                 {

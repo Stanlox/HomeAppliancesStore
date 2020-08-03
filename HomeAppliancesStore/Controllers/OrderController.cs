@@ -62,7 +62,7 @@ namespace HomeAppliancesStore.Controllers
                 builder.Append($"Вы приобрели: {orderedProduct.product.Name} По цене {orderedProduct.product.Price} руб. ");
             }
             builder.Append($"В ближайшее время с вами свяжутся наши сотрудники по телефону {order.Phone} для подтверждения заказа.");
-            service.SendEmail(order.Email, builder.ToString());
+            service.SendEmail(order.Email, "Подтверждения заказа", builder.ToString());
             return View();
         }
     }
