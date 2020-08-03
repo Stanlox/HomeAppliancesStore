@@ -42,8 +42,12 @@ namespace HomeAppliancesStore.Controllers
             return RedirectToAction("Index");
         }
 
-        public RedirectToActionResult AddInBasket(int id)
+        public IActionResult AddInBasket(int id)
         {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return View("NotAuthorized");
+            }
             var concreteProduct = product.products.FirstOrDefault(x => x.Id == id);
             if(product != null)
             {
