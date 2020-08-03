@@ -69,7 +69,7 @@ namespace HomeAppliancesStore.Controllers
 
                         if (!result.Succeeded)
                         {
-                            ModelState.AddModelError("", result.Errors.ToString());
+                            ModelState.AddModelError(string.Empty, result.Errors.ToString());
                         }
                     }
                 }
@@ -84,7 +84,7 @@ namespace HomeAppliancesStore.Controllers
 
                         if (!result.Succeeded)
                         {
-                            ModelState.AddModelError("", result.Errors.ToString());
+                            ModelState.AddModelError(string.Empty, result.Errors.ToString());
                         }
                     }
                 }
@@ -114,7 +114,7 @@ namespace HomeAppliancesStore.Controllers
 
                 else
                 {
-                    ModelState.AddModelError("", result.Errors.ToString());
+                    ModelState.AddModelError(string.Empty, result.Errors.ToString());
                 }
             }
 
@@ -135,12 +135,12 @@ namespace HomeAppliancesStore.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("", result.Errors.ToString());
+                    ModelState.AddModelError(string.Empty, result.Errors.ToString());
                 }
             }
             else
             {
-                ModelState.AddModelError("", "Role no found");
+                ModelState.AddModelError(string.Empty, "Role no found");
             }
 
             return View("Index", roleManager.Roles);

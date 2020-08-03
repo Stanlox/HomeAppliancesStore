@@ -81,14 +81,14 @@ namespace HomeAppliancesStore.Controllers
                         protocol: HttpContext.Request.Scheme);
 
                      service.SendEmail(model.Email, "Подтверждения регистрации", $"Подтвердите регистрацию, перейдя по ссылке: <a href='{callbackUrl}'>link</a>");
-                     return Content("Для завершения регистрации проверьте электронную почту и перейдите по ссылке, указанной в письме");
+                     return View("CreateAccountConfirm");
                 }
-
+                
                 else
                 {
                     foreach (var error in result.Errors)
                     {
-                        ModelState.AddModelError("", error.Description);
+                        ModelState.AddModelError(string.Empty, error.Description);
                     }
                 }
             }

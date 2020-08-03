@@ -53,10 +53,5 @@ namespace HomeAppliancesStore.Services
                 logger.LogError(ex.GetBaseException().Message);
             }
         }
-
-        private string HtmlEncode(string textMessage)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

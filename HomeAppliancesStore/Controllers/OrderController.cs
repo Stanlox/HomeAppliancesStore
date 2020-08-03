@@ -38,7 +38,7 @@ namespace HomeAppliancesStore.Controllers
 
             if(countDeviceInBasket == 0)
             {
-                ModelState.AddModelError("", "Для того чтобы совершить покупку для начало необходимо добавить товар в корзину");
+                ModelState.AddModelError(string.Empty, "Для того чтобы совершить покупку для начало необходимо добавить товар в корзину");
             }
 
             if (ModelState.IsValid)
