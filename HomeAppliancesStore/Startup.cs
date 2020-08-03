@@ -8,6 +8,7 @@ using HomeAppliancesStore.Controllers;
 using HomeAppliancesStore.DTO;
 using HomeAppliancesStore.Filter;
 using HomeAppliancesStore.Interfaces;
+using HomeAppliancesStore.Middleware;
 using HomeAppliancesStore.Models;
 using HomeAppliancesStore.Repository;
 using HomeAppliancesStore.Services;
@@ -52,7 +53,13 @@ namespace HomeAppliancesStore
                 {
                     config.Filters.Add(new CountRequestAttribute());
                 });
-            
+            services.AddMvc(
+                config =>
+                {
+
+                    config.Filters.Add(new ExceptionFilterAttribute());
+                });
+
             services.AddIdentity<User, IdentityRole>(options => {
                 options.User.RequireUniqueEmail = true;
                 options.Password.RequiredLength = 6;
@@ -82,14 +89,14 @@ namespace HomeAppliancesStore
                 app.UseHsts();
             }
   
-            app.UseHttpsRedirection();
-            app.UseAuthentication();
-            app.UseStaticFiles();
-            app.UseCookiePolicy();
-            app.UseSession();
-            ApplicationDbContent.CreateAdminAccount(app.ApplicationServices, this.configuration).Wait();
+             app.UseHttpsRedirection();
+             app.UseAuthentication();
+             app.UseStaticFiles();
+             app.UseCookiePolicy();
+             app.UseSession();
+             ApplicationDbContent.CreateAdminAccount(app.ApplicationServices, this.configuration).Wait();
 
-
+             app.UseMiddleware<RequestMiddleware>();
              app.UseMvc(routes =>
               {
                     routes.MapRoute(

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using SignInResult = Microsoft.AspNetCore.Identity.SignInResult;
 
@@ -28,6 +29,7 @@ namespace HomeAppliancesStore.Controllers
             return View();
         }
 
+       
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel details)
         {

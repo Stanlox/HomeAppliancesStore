@@ -1,4 +1,5 @@
 ﻿using HomeAppliancesStore.Filter;
+using HomeAppliancesStore.Middleware;
 using HomeAppliancesStore.Models;
 using HomeAppliancesStore.ViewModels;
 using Microsoft.AspNetCore.Authorization;
@@ -148,10 +149,17 @@ namespace HomeAppliancesStore.Controllers
 
         public ViewResult GetRequest()
         {
-
             var count = CountRequestAttribute.GetCountRequest();
             var info = CountRequestAttribute.GetMoreInformationAboutRequest();
             ViewBag.Message = ++count;
+            return View(info);
+        }
+
+        public ViewResult GetAuthenticatedUsers()
+        {
+            var info = RequestMiddleware.GetListAuthenticatedUsers;
+            var countRequest = RequestMiddleware.GetCountAuthenticatedRequest;
+            ViewBag.Message = ++countRequest;
             return View(info);
         }
 

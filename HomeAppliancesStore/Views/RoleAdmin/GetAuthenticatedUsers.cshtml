@@ -1,0 +1,31 @@
+﻿@using Microsoft.AspNetCore.Http;
+@model List<string>
+
+@{
+    Layout = "_LayoutAdmin";
+}
+
+<h2>Статистика авторизованных пользователей: @ViewBag.Message</h2>
+<div class="panel-body">
+    <table class="table table-sm table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>№</th>
+                <th>Имя</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                int i = 1;
+            }
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@i</td>
+                    <td>@item</td>
+                </tr>
+                i++;
+            }
+        </tbody>
+    </table>
+</div>
