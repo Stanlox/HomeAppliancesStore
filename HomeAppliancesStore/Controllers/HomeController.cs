@@ -18,12 +18,12 @@ namespace HomeAppliancesStore.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IProduct product;
+        private readonly IProductRepository product;
         private static string NameDeviceCategory = "Все товары";
         private IEnumerable<Product> productsByCategoria = new List<Product>();
 
 
-        delegate IEnumerable<Product> GetProducts(IEnumerable<Product> productsByCategoria, string nameCategory, IProduct product);
+        delegate IEnumerable<Product> GetProducts(IEnumerable<Product> productsByCategoria, string nameCategory, IProductRepository product);
         private Tuple<string, GetProducts>[] commands = new Tuple<string, GetProducts>[]
          {
                 new Tuple<string, GetProducts>("phones", GetPhones),
@@ -33,7 +33,7 @@ namespace HomeAppliancesStore.Controllers
          };
 
 
-        public HomeController(IProduct product, IProductCategory productCategory)
+        public HomeController(IProductRepository product)
         {
             this.product = product;
         }
@@ -86,25 +86,25 @@ namespace HomeAppliancesStore.Controllers
             return View(availableProduct);
         }
 
-        public static IEnumerable<Product> GetPhones(IEnumerable<Product> productsByCategory, string nameCategory, IProduct product)
+        public static IEnumerable<Product> GetPhones(IEnumerable<Product> productsByCategory, string nameCategory, IProductRepository product)
         {
             NameDeviceCategory = "Мобильные телефоны";
             return productsByCategory = product.products.Where(i => i.Category.categoryName.Equals(NameDeviceCategory, StringComparison.InvariantCultureIgnoreCase));
         }
 
-        public static IEnumerable<Product> GetLaptop(IEnumerable<Product> productsByCategory, string nameCategory, IProduct product)
+        public static IEnumerable<Product> GetLaptop(IEnumerable<Product> productsByCategory, string nameCategory, IProductRepository product)
         {
             NameDeviceCategory = "Ноутбуки";
             return productsByCategory = product.products.Where(i => i.Category.categoryName.Equals(NameDeviceCategory, StringComparison.InvariantCultureIgnoreCase));
         }
 
-        public static IEnumerable<Product> GetTablets(IEnumerable<Product> productsByCategory, string nameCategory, IProduct product)
+        public static IEnumerable<Product> GetTablets(IEnumerable<Product> productsByCategory, string nameCategory, IProductRepository product)
         {
             NameDeviceCategory = "Планшеты";
             return productsByCategory = product.products.Where(i => i.Category.categoryName.Equals(NameDeviceCategory, StringComparison.InvariantCultureIgnoreCase));
         }
 
-        public static IEnumerable<Product> GetProjectors(IEnumerable<Product> productsByCategory, string nameCategory, IProduct product)
+        public static IEnumerable<Product> GetProjectors(IEnumerable<Product> productsByCategory, string nameCategory, IProductRepository product)
         {
             NameDeviceCategory = "Проекторы";
             return productsByCategory = product.products.Where(i => i.Category.categoryName.Equals(NameDeviceCategory, StringComparison.InvariantCultureIgnoreCase));

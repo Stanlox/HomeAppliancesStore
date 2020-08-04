@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HomeAppliancesStore.Interfaces
 {
-    public interface IProduct
+    public interface IProductRepository
     {
         /// <summary>
         /// Gets a list of all products.

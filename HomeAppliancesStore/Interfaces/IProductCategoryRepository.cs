@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HomeAppliancesStore.Interfaces
 {
-    public interface IProductCategory
+    public interface IProductCategoryRepository
     {
         IEnumerable<CategoryProduct> allCategory { get; }
     }

@@ -15,10 +15,10 @@ namespace HomeAppliancesStore.Controllers
     [CountRequest]
     public class BasketController : Controller
     {
-        private readonly IProduct product;
+        private readonly IProductRepository product;
         private readonly Basket basket;
 
-        public BasketController(IProduct product, Basket basket)
+        public BasketController(IProductRepository product, Basket basket)
         {
             this.basket = basket;
             this.product = product;

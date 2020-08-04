@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace HomeAppliancesStore.Repository
 {
-    public class ProductRepository : IProduct
+    public class ProductRepository : IProductRepository
     {
         private readonly ApplicationDbContent dbContent;
 

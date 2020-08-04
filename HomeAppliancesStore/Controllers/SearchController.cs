@@ -11,9 +11,9 @@ namespace HomeAppliancesStore.Controllers
 {
     public class SearchController : Controller
     {
-        private readonly IProduct product;
+        private readonly IProductRepository product;
         private  Dictionary<string, List<Product>> productDictionary = new Dictionary<string, List<Product>>();
-        public SearchController(IProduct product)
+        public SearchController(IProductRepository product)
         {
             this.product = product;
             foreach (var particularProduct in this.product.products)

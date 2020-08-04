@@ -42,8 +42,8 @@ namespace HomeAppliancesStore
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationDbContent>(options => options.UseSqlServer(configurationRoot.GetConnectionString("DefaultConnection")));
-            services.AddTransient<IProduct, ProductRepository>();
-            services.AddTransient<IProductCategory, CategoryRepository>();
+            services.AddTransient<IProductRepository, ProductRepository>();
+            services.AddTransient<IProductCategoryRepository, CategoryRepository>();
             services.AddTransient<IOrders, OrderRepository>();
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddTransient<EmailService>();
