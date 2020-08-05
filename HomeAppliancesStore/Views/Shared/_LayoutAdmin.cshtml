@@ -31,7 +31,7 @@
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="navbar navbar-expand-md navbar-light bg-light sticky-top">
                 <div class="container-fluid">
-                    <a asp-controller="Home" asp-action="Index" class="navbar-brad"><img src="/img/5element.png"></a>
+                    <a asp-controller="RoleAdmin" asp-action="ProductManagement" class="navbar-brad"><img src="/img/5element.png"></a>
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav ml-auto">
                             <li class="nav-item active">
@@ -44,7 +44,10 @@
                                 <a href="/RoleAdmin/ListUsers/" class="nav-link">Пользователи</a>
                             </li>
                             <li class="nav-item active">
-                                <a href="/RoleAdmin/GetAuthenticatedUsers/" class="nav-link">Статистика авторизованных пользователей</a>
+                                <a href="/RoleAdmin/GetAuthenticatedUsers/" class="nav-link">Запросы авторизованных пользователей</a>
+                            </li>
+                            <li class="nav-item active">
+                                <a href="/RoleAdmin/ProductManagement/" class="nav-link">Продукты</a>
                             </li>
                         </ul>
                     </div>
@@ -70,6 +73,10 @@
     <div class="container mb-5">
         <partial name="_CookieConsentPartial" />
         <main role="main" class="pb-3 mt-5">
+            @if (TempData["message"] != null)
+            {
+                <div class="alert alert-success">@TempData["message"]</div>
+            }
             @RenderBody()
         </main>
     </div>

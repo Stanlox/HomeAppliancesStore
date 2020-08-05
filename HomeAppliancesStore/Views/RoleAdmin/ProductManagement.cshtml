@@ -1,0 +1,47 @@
+﻿@using HomeAppliancesStore.ViewModels
+@model Tuple<ProductViewModel, Product>
+@{ 
+    Layout = "_LayoutAdmin";
+}
+
+    <table class="table table-bordered table-hover">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Item2.Id)
+            <th>
+                @Html.DisplayNameFor(model => model.Item2.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Item2.Category)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Item2.Price)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model.Item1.products)
+        {            
+            <tr>
+                <td>
+                    @Html.DisplayFor(model => item.Id)
+                </td>
+                <td>
+                    @Html.ActionLink(item.Name, "EditProduct", new { item.Id })
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.Category.categoryName)
+                </td>
+                <td class="text-right">
+                    @Html.DisplayFor(model => item.Price)
+                </td>
+                <td>
+                    <form asp-controller="RoleAdmin" asp-action="DeleteProduct" method="post" class="form-horizontal">
+                        @Html.Hidden("id", item.Id)
+                        <button type="submit" class="btn btn-danger">Удалить</button>
+                    </form>
+                </td>
+            </tr>
+        }
+
+    </table>

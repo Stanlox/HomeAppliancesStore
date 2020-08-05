@@ -46,7 +46,8 @@ namespace HomeAppliancesStore.Controllers
         {
             if (!User.Identity.IsAuthenticated)
             {
-                return View("NotAuthorized");
+                TempData["message"] = string.Format("Для того чтобы добавить товар в корзину необходимо авторизоваться");
+                return Redirect("/Home/List");
             }
             var concreteProduct = product.products.FirstOrDefault(x => x.Id == id);
             if(product != null)

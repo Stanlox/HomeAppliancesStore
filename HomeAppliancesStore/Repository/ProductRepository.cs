@@ -32,5 +32,34 @@ namespace HomeAppliancesStore.Repository
                 return dbContent.Product.Where(x => x.isAvailable).Include(x => x.Category);
             }
         }
+
+        public void SaveProduct(Product product)
+        {
+            Product prod = dbContent.Product.Find(product.Id);
+
+            if(prod != null)
+            {
+                prod.Name = product.Name;
+                prod.img = product.img;
+                prod.isAvailable = product.isAvailable;
+                prod.Price = product.Price;
+                prod.Category = product.Category;
+                prod.categoryId = product.categoryId;
+            }
+
+            dbContent.SaveChanges();
+        }
+
+        public Product DeleteProduct(int id)
+        {
+            Product prod = dbContent.Product.Find(id);
+            if(prod != null)
+            {
+                dbContent.Product.Remove(prod);
+                dbContent.SaveChanges();
+            }
+
+            return prod;
+        }
     }
 }
