@@ -202,5 +202,16 @@ namespace HomeAppliancesStore.Controllers
             }
             
         }
+
+        [HttpPost]
+        public ActionResult DeleteProduct(int id)
+        {
+            Product product = this.product.DeleteProduct(id);
+            if (product != null)
+            {
+                TempData["message"] = string.Format("Товар \"{0}\" был удалена", product.Name);
+            }
+            return RedirectToAction("ProductManagement");
+        }
     }
 }

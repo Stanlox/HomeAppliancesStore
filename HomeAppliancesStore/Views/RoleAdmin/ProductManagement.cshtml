@@ -7,7 +7,6 @@
     @Html.ActionLink("Create New", "Create")
 </p>
 
-<div>
     <table class="table table-bordered table-hover">
         <tr>
             <th>
@@ -25,7 +24,7 @@
         </tr>
 
         @foreach (var item in Model.Item1.products)
-        {
+        {            
             <tr>
                 <td>
                     @Html.DisplayFor(model => item.Id)
@@ -40,14 +39,12 @@
                     @Html.DisplayFor(model => item.Price)
                 </td>
                 <td>
-                    @using (Html.BeginForm("Delete", "Admin"))
-                    {
-                        @Html.Hidden("ProductId", item.Id)
-                        <input type="submit" class="btn btn-danger" value="Удалить" />
-                    }
+                    <form asp-controller="RoleAdmin" asp-action="DeleteProduct" method="post" class="form-horizontal">
+                        @Html.Hidden("id", item.Id)
+                        <button type="submit" class="btn btn-danger">Удалить</button>
+                    </form>
                 </td>
             </tr>
         }
 
     </table>
-</div>

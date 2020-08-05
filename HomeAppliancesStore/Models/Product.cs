@@ -13,12 +13,15 @@ namespace HomeAppliancesStore.Models
         public int Id { get; set; }
 
         [Display(Name = "Название")]
+        [Required(ErrorMessage = "Пожалуйста, введите название товара")]
         public string Name { get; set; }
 
         [ScaffoldColumn(false)]
         public string img { get; set; }
 
         [Display(Name = "Цена")]
+        [Required(ErrorMessage = "Пожалуйста, укажите цену")]
+        [Range(1, int.MaxValue)]
         public decimal Price { get; set; }
 
         [Display(Name = "Наличие")]

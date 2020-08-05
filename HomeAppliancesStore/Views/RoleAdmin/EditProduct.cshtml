@@ -4,6 +4,7 @@
 }
 <h3>Редактирование «@Model.Name»</h3>
 <form asp-action="EditProduct" asp-controller="RoleAdmin">
+    <div class="text-danger" asp-validation-summary="All"></div>
     @Html.HiddenFor(x => x.Id)
     @Html.HiddenFor(x => x.img)
     @Html.HiddenFor(x => x.categoryId)

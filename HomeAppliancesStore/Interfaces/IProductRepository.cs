@@ -23,5 +23,12 @@ namespace HomeAppliancesStore.Interfaces
         /// </summary>
         /// <param name="product">Input product.</param>
         void SaveProduct(Product product);
+
+        /// <summary>
+        /// Delete product by id.
+        /// </summary>
+        /// <param name="id">Input id.</param>
+        /// <returns>Remote product.</returns>        
+        Product DeleteProduct(int id);
     }
 }

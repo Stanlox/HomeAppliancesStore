@@ -49,5 +49,17 @@ namespace HomeAppliancesStore.Repository
 
             dbContent.SaveChanges();
         }
+
+        public Product DeleteProduct(int id)
+        {
+            Product prod = dbContent.Product.Find(id);
+            if(prod != null)
+            {
+                dbContent.Product.Remove(prod);
+                dbContent.SaveChanges();
+            }
+
+            return prod;
+        }
     }
 }
