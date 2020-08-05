@@ -17,5 +17,11 @@ namespace HomeAppliancesStore.Interfaces
         /// Gets a list of available products.
         /// </summary>
         IEnumerable<Product> availableProduct { get; }
+
+        /// <summary>
+        /// Save a product with a change.
+        /// </summary>
+        /// <param name="product">Input product.</param>
+        void SaveProduct(Product product);
     }
 }

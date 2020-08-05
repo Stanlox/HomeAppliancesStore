@@ -1,4 +1,5 @@
 ﻿using HomeAppliancesStore.Filter;
+using HomeAppliancesStore.Interfaces;
 using HomeAppliancesStore.Middleware;
 using HomeAppliancesStore.Models;
 using HomeAppliancesStore.ViewModels;
@@ -18,11 +19,13 @@ namespace HomeAppliancesStore.Controllers
     {
         private RoleManager<IdentityRole> roleManager;
         private UserManager<User> userManager;
+        private readonly IProductRepository product;
 
-        public RoleAdminController(RoleManager<IdentityRole> roleManager, UserManager<User> userManager)
+        public RoleAdminController(RoleManager<IdentityRole> roleManager, UserManager<User> userManager, IProductRepository product)
         {
             this.roleManager = roleManager;
             this.userManager = userManager;
+            this.product = product;
         }
 
         public ViewResult Index()
@@ -165,6 +168,39 @@ namespace HomeAppliancesStore.Controllers
         public ViewResult ListUsers()
         {
             return View(this.userManager.Users);
+        }
+
+        public ViewResult ProductManagement()
+        {
+            var allProducts = product.products;
+            var productViewModel = new ProductViewModel
+            {
+                products = allProducts,
+                Category = string.Empty
+            };
+            return View(Tuple.Create(productViewModel, new Product()));
+        }
+
+        public ViewResult EditProduct(int Id)
+        {
+            var foundProductById = product.products.FirstOrDefault(x => x.Id == Id);
+            return View(foundProductById);
+        }
+
+        [HttpPost]
+        public ActionResult EditProduct(Product product)
+        {
+            if (ModelState.IsValid)
+            {
+                this.product.SaveProduct(product);
+                TempData["message"] = string.Format("Изменения \"{0}\" были сохранены", product.Name);
+                return RedirectToAction("ProductManagement");
+            }
+            else
+            {
+                return View(product);
+            }
+            
         }
     }
 }

@@ -1,0 +1,24 @@
+﻿@model HomeAppliancesStore.Models.Product
+@{
+    Layout = "_LayoutAdmin";
+}
+<h3>Редактирование «@Model.Name»</h3>
+<form asp-action="EditProduct" asp-controller="RoleAdmin">
+    @Html.HiddenFor(x => x.Id)
+    @Html.HiddenFor(x => x.img)
+    @Html.HiddenFor(x => x.categoryId)
+    @Html.HiddenFor(x => x.Category)
+    <div class="form-group">
+        <label asp-for="Name"></label>
+        <input type="text" asp-for="Name" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Price"></label>
+        <input asp-for="Price" class="form-control" />
+    </div>
+    <div class="form-check">
+        <input asp-for="isAvailable" type="checkbox" class="form-check-input">
+        <label class="form-check-label"></label>
+    </div>
+    <button type="submit" class="btn btn-primary">Сохранить</button>
+</form>
