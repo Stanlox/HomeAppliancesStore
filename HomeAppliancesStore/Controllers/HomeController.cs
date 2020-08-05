@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Http;
 using System.Web;
 using System.Security.Claims;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace HomeAppliancesStore.Controllers
 {
@@ -21,6 +22,7 @@ namespace HomeAppliancesStore.Controllers
         private readonly IProductRepository product;
         private static string NameDeviceCategory = "Все товары";
         private IEnumerable<Product> productsByCategoria = new List<Product>();
+        private IServiceProvider service;
 
 
         delegate IEnumerable<Product> GetProducts(IEnumerable<Product> productsByCategoria, string nameCategory, IProductRepository product);
@@ -33,14 +35,20 @@ namespace HomeAppliancesStore.Controllers
          };
 
 
-        public HomeController(IProductRepository product)
+        public HomeController(IProductRepository product, IServiceProvider service)
         {
             this.product = product;
+            this.service = service;
         }
 
 
-        public ViewResult Index()
+        public IActionResult Index()
         {
+            var isAdmin = service.GetRequiredService<IHttpContextAccessor>()?.HttpContext.User.IsInRole("Admin");
+            if (isAdmin ?? true)
+            {
+                return Redirect("/RoleAdmin/ProductManagement");
+            }
             ViewBag.Message = "Добро пожаловать на сайт интернет-магазина продажи бытовой техники.";
             return View();
         }
